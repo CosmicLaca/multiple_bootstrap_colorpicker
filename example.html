@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Multiple bootstrap colorpicker demo</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/js/bootstrap-colorpicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/css/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" media="all" href="example.css">
+</head>
+
+<body>
+
+    <h3>Demo</h3>
+
+    <div id="colorpicker_control_template" style="display: none">
+        <div class="input-append color colorpicker-component" data-color="rgba(255,146,180,1)" data-color-format="rgba">
+            <input type="text" class="input-medium" value="rgba(255,146,180,1)" readonly="">
+            <span class="color_picker_trick">a</span><span class="add-on"><i style="background-color: rgba(255,146,180,1);"></i></span>
+            <i class="btn add_new_picker" type="button" title="Add one more colorpicker">Add new</i>
+            <i class="btn remove_picker" type="button" title="Remove this colorpicker">Remove</i>
+        </div>
+    </div>
+
+    <div id="colorpicker_wrapper">
+        <div class="input-append color colorpicker-component" data-color="rgba(255,146,180,1)" data-color-format="rgba">
+            <input type="text" class="input-medium" value="rgba(255,146,180,1)" readonly="">
+            <span class="color_picker_trick">a</span><span class="add-on"><i style="background-color: rgba(255,146,180,1);"></i></span>
+            <i class="btn add_new_picker" type="button" title="Add one more colorpicker">Add new</i>
+        </div>
+    </div>
+
+    <script>
+        $('div.colorpicker-component').colorpicker();
+
+        var ColorPickedDom = null;
+        $(document).ready(function () {
+
+            // add new
+            $("body div#colorpicker_wrapper").on('click', 'div.colorpicker-component i.add_new_picker', function() {
+                var UploadTemplate = $('div#colorpicker_control_template').html();
+                $('div#colorpicker_wrapper').append(UploadTemplate);
+            });
+
+            // remove clicked
+            $("body div#colorpicker_wrapper").on('click', 'div.colorpicker-component i.remove_picker', function() {
+                $(this).parent().closest('div.colorpicker-component').remove();
+            });
+
+            // the trick
+            $('div#colorpicker_wrapper').on('click', 'div.colorpicker-component span.color_picker_trick', function(e) {
+                ColorPickedDom = $(this).parent();
+                $(ColorPickedDom).colorpicker('show');
+            });
+
+        });
+    </script>
+
+</body>
+</html>
